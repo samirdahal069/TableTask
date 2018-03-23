@@ -1,0 +1,49 @@
+﻿@model  TableTask.Models.ViewModels.PagedViewModel<TableTask.Model.Employee.EmployeeModel>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+@section  scripts{
+    <script type="text/javascript">
+
+    $(function () {
+        $('#BtnSearch').click(function () {
+            $.ajax({
+                url: '@Url.Action("Index","Home")',
+                type: 'Post',
+                data: { page: null, employeeName: $('#employeeName').val(), salary: $('#salary').val() },
+                success: function (data) {
+                    $('#EmployeeList').html(data);
+                }
+            });
+
+        });
+
+    });
+    </script>
+
+}
+
+<div class="panel-heading" style="height: 50px;">
+</div>
+<div class="well">
+    <fieldset class="form-search">
+        <h4 class="header lighter blue">Search Options</h4>
+        <table class="table table-condensed no-border">
+            <tr>
+                <td class="col-md-2">FullName</td>
+                <td class="col-md-2">@Html.TextBox("employeeName", "", new { @class = "form-control" })</td>
+                <td class="col-md-2">Salary</td>
+                <td class="col-md-2">@Html.TextBox("salary", "", new { @class = "form-control" })</td>
+                <td><input id="BtnSearch" type="button" value="Search" class="btn btn-primary  ui-icon-search pull-right " /></td>
+            </tr>
+        </table>     
+    </fieldset>
+</div>
+
+<div id="EmployeeList">
+    @{ @Html.Partial("_EmployeList", Model);}
+</div>
+
+
+

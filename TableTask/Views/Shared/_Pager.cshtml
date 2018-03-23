@@ -1,0 +1,18 @@
+﻿@model PagedList.IPagedList
+@using PagedList.Mvc
+@using TableTask.Helpers
+@if (Model.PageCount > 0)
+{
+    if (Model.HasNextPage || Model.HasPreviousPage)
+    {
+        <div class="dataTables_paginate pagination">
+           @Html.PagedListPager(Model, page => Html.PagerQueryLink(page), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    }
+}
+else
+{
+    <div class="pagination-lg">
+        <h2>Empty rows.</h2>
+    </div>
+}
